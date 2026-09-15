@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bigtech-vacancy-bot"
+version = "0.1.0"
+description = "Telegram vacancy reports for Russian big tech"
+requires-python = ">=3.11"
+dependencies = [
+  "python-telegram-bot[job-queue]==22.8",
+  "httpx==0.28.1",
+  "python-docx==1.2.0",
+  "lxml>=5,<7",
+  "python-dotenv>=1.1,<2",
+  "tzdata>=2025.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "ruff>=0.12,<1"]
+
+[project.scripts]
+vacancy-bot = "vacancy_bot.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["vacancy_bot*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
